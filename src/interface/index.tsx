@@ -1,16 +1,16 @@
 export interface DatasetInterface {
-  ProductName: string;
-  Brand: string;
-  ActualPrice: number;
-  DiscountPrice: number;
-  Discounted: number;
-  Stars: number;
-  Rating: number;
-  Reviews: number;
-  RAM: number;
-  Storage: number;
-  DisplaySize: number;
-  Camera: string;
-  Description: string;
-  Link: string;
+  ProductName: string | null;
+  Brand: string | null;
+  ActualPrice: number | null;
+  DiscountPrice: number | null;
+  Discounted: number | null;
+  Stars: number | null;
+  Rating: number | null;
+  Reviews: number | null;
+  RAM: number | null;
+  Storage: number | null;
+  DisplaySize: number | null;
+  Camera: string | null;
+  Description: string | null;
+  Link: string | null;
 }
