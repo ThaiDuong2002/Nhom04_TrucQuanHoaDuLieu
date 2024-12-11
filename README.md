@@ -4,7 +4,26 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+First, run install command:
+
+```bash
+npm install
+```
+
+### <span style="color: red;">**Notes:**</span>
+If the error `error ERESOLVE unable to resolve dependency tree` occurs ([**React 19 release**](https://nextjs.org/blog/next-15#react-19), [**Issue Example**](https://github.com/vercel/next-learn/issues/802)), run this instead:
+
+```bash
+npm install --force
+```
+
+Or
+
+```bash
+npm install --legacy-peer-deps
+```
+
+After installing successfully, run the development server:
 
 ```bash
 npm run dev
