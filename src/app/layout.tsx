@@ -33,7 +33,9 @@ const RootLayout = ({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar />
-        {children}
+        <div className="flex h-[calc(100vh-3.5rem)] items-center justify-center">
+          {children}
+        </div>
       </body>
     </html>
   );
