@@ -30,7 +30,7 @@ const Domain01 = () => {
       };
     }
   ).then((data: DatasetInterface[]) => {
-    console.log(data);
+    // console.log(data);
   });
   return (
     <div>
