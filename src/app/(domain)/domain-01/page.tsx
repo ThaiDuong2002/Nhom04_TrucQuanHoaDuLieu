@@ -10,6 +10,7 @@ const Domain01 = () => {
     datasetUrl,
     (data: d3.DSVRowString<string>): DatasetInterface | null => {
       if (!data) return null;
+      console.log(data);
 
       return {
         ProductName: data["Product Name"],
