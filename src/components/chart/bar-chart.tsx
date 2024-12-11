@@ -27,7 +27,7 @@ const BarChart = ({
 
   const x = d3
     .scaleBand()
-    .domain(data.map((d) => d.ActualPrice.toString()))
+    .domain(data.map((d) => d.DiscountPrice!.toString()))
     .range([marginLeft, width - marginRight])
     .padding(0.1);
 
@@ -71,10 +71,10 @@ const BarChart = ({
             style={{
               mixBlendMode: "multiply",
             }}
-            x={x(d.ActualPrice.toString())}
-            y={y(d.Discounted)}
+            x={x(d.ActualPrice!.toString())}
+            y={y(d.Discounted!)}
             width={x.bandwidth()}
-            height={y(0) - y(d.Discounted)}
+            height={y(0) - y(d.Discounted!)}
           ></rect>
         ))}
       </g>
