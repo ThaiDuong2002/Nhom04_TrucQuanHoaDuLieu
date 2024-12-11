@@ -1,3 +1,3 @@
-import domainNavData from "./domain-nav-data";
+import domainData from "./domain-data";
 
-export { domainNavData };
+export { domainData };

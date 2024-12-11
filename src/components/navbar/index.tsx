@@ -1,4 +1,4 @@
-import { domainNavData } from "@/constants";
+import { domainData } from "@/constants";
 import Link from "next/link";
 import MaxWidthWrapper from "../max-width-wrapper";
 import { buttonVariants } from "../ui/button";
@@ -31,7 +31,7 @@ const Navbar = () => {
                 <NavigationMenuTrigger>Domains</NavigationMenuTrigger>
                 <NavigationMenuContent asChild>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    {domainNavData.map((domain) => (
+                    {domainData.map((domain) => (
                       <ListItem
                         key={domain.title}
                         title={domain.title}
