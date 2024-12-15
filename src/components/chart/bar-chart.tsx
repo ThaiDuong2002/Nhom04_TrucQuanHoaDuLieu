@@ -25,36 +25,43 @@ const BarChart = ({
   const gy = useRef<SVGSVGElement>(null);
   const bar = useRef(null);
 
+  console.log(data.map((d) => d.Discounted));
+
+  const bins = d3
+    .bin()
+    .thresholds(40)
+    .value((d) => d)(
+    data.map((d) => d.Discounted).filter((value) => value !== null)
+  );
+
   const x = d3
-    .scaleBand()
-    .domain(data.map((d) => d.DiscountPrice!.toString()))
-    .range([marginLeft, width - marginRight])
-    .padding(0.1);
+    .scaleLinear()
+    .domain([bins[0].x0 ?? 0, bins[bins.length - 1].x1 ?? 0])
+    .range([marginLeft, width - marginRight]);
 
   const y = d3
     .scaleLinear()
-    .domain([0, d3.max(data, (d) => d.Discounted) ?? 0])
-    .nice()
+    .domain([0, d3.max(bins, (d) => d.length) ?? 0])
     .range([height - marginBottom, marginTop]);
 
   useEffect(
     () =>
-      void d3
-        .select(gx.current as SVGSVGElement)
-        .call(d3.axisBottom(x).tickSizeOuter(0)),
-    [gx, x]
+      void d3.select(gx.current as SVGSVGElement).call(
+        d3
+          .axisBottom(x)
+          .ticks(width / 80)
+          .tickSizeOuter(0)
+      ),
+    [gx, x, width]
   );
+
   useEffect(
     () =>
       void d3
         .select(gy.current as SVGSVGElement)
-        .call(
-          d3
-            .axisLeft(y)
-            .tickFormat((value) => ((value as number) * 100).toFixed())
-        )
+        .call(d3.axisLeft(y).ticks(height / 40))
         .call((g) => g.select(".domain").remove()),
-    [gy, y]
+    [gy, y, height]
   );
 
   return (
@@ -62,24 +69,29 @@ const BarChart = ({
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
-      className={`max-w-[${width}px] h-auto overflow-visible font-sans`}
+      className="max-w-full h-auto"
     >
       <g ref={bar} fill="steelblue">
-        {data.map((d) => (
+        {bins.map((d, i) => (
           <rect
-            key={d.Link}
-            style={{
-              mixBlendMode: "multiply",
-            }}
-            x={x(d.ActualPrice!.toString())}
-            y={y(d.Discounted!)}
-            width={x.bandwidth()}
-            height={y(0) - y(d.Discounted!)}
-          ></rect>
+            key={i}
+            x={x(d.x0!) + 1}
+            width={x(d.x1!) - x(d.x0!) - 1}
+            y={y(d.length)}
+            height={y(0) - y(d.length)}
+          />
         ))}
       </g>
-      <g ref={gx} transform={`translate(0,${height - marginBottom})`} />
-      <g ref={gy} transform={`translate(${marginLeft},0)`} />
+      <g ref={gx} transform={`translate(0,${height - marginBottom})`}>
+        <text x="50%" y={marginBottom} fill="currentColor" textAnchor="end">
+          Discounted (%) →
+        </text>
+      </g>
+      <g ref={gy} transform={`translate(${marginLeft},0)`}>
+        <text x={-marginLeft} y={10} fill="currentColor" textAnchor="start">
+          Frequency (no. of Discounted) ↑
+        </text>
+      </g>
     </svg>
   );
 };

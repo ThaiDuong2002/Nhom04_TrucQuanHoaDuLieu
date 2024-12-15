@@ -14,15 +14,15 @@ const Domain01 = async () => {
       return {
         ProductName: data["Product Name"] || null,
         Brand: data.Brand || null,
-        ActualPrice: Number(data["Actual price"]) || 0,
-        DiscountPrice: Number(data["Discount price"]) || 0,
-        Discounted: Number(data.Discounted) || 0,
-        Stars: Number(data.Stars) || 0,
-        Rating: Number(data.Rating) || 0,
-        Reviews: Number(data.Reviews) || 0,
-        RAM: Number(data["RAM (GB)"]) || 0,
-        Storage: Number(data["Storage (GB)"]) || 0,
-        DisplaySize: Number(data["Display Size (inch)"]) || 0,
+        ActualPrice: Number(data["Actual price"]) || null,
+        DiscountPrice: Number(data["Discount price"]) || null,
+        Discounted: Number(data.Discounted) || null,
+        Stars: Number(data.Stars) || null,
+        Rating: Number(data.Rating) || null,
+        Reviews: Number(data.Reviews) || null,
+        RAM: Number(data["RAM (GB)"]) || null,
+        Storage: Number(data["Storage (GB)"]) || null,
+        DisplaySize: Number(data["Display Size (inch)"]) || null,
         Camera: data.Camera || null,
         Description: data.Description || null,
         Link: data.Link || null,
@@ -32,14 +32,13 @@ const Domain01 = async () => {
 
   return (
     <div>
-      <h1>Domain 1</h1>
       <BarChart
         data={data}
-        width={1000}
-        height={400}
-        marginTop={20}
-        marginRight={0}
-        marginBottom={30}
+        width={960}
+        height={500}
+        marginTop={50}
+        marginRight={20}
+        marginBottom={50}
         marginLeft={40}
       />
     </div>

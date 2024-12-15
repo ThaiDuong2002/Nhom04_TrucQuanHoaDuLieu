@@ -14,3 +14,8 @@ export interface DatasetInterface {
   Description: string | null;
   Link: string | null;
 }
+
+export interface DiscountCount {
+  discouted: number;
+  count: number;
+}
