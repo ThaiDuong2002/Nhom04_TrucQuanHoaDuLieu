@@ -19,3 +19,15 @@ export interface DiscountCount {
   discouted: number;
   count: number;
 }
+
+export interface Domain02Interface {
+  storage: string[];
+  display: string[];
+  prices: number[][];
+}
+
+export interface Domain03Interface {
+  ram: string[];
+  display: string[];
+  prices: number[][];
+}

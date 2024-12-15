@@ -9,8 +9,6 @@ const Domain01 = async () => {
     (data: d3.DSVRowString<string>): DatasetInterface | null => {
       if (!data) return null;
 
-      // console.log(data);
-
       return {
         ProductName: data["Product Name"] || null,
         Brand: data.Brand || null,
@@ -30,16 +28,23 @@ const Domain01 = async () => {
     }
   );
 
+  const width = 960;
+  const height = 500;
+  const marginTop = 50;
+  const marginRight = 20;
+  const marginBottom = 50;
+  const marginLeft = 40;
+
   return (
     <div>
       <BarChart
         data={data}
-        width={960}
-        height={500}
-        marginTop={50}
-        marginRight={20}
-        marginBottom={50}
-        marginLeft={40}
+        width={width}
+        height={height}
+        marginTop={marginTop}
+        marginRight={marginRight}
+        marginBottom={marginBottom}
+        marginLeft={marginLeft}
       />
     </div>
   );
