@@ -25,8 +25,6 @@ const BarChart = ({
   const gy = useRef<SVGSVGElement>(null);
   const bar = useRef(null);
 
-  console.log(data.map((d) => d.Discounted));
-
   const bins = d3
     .bin()
     .thresholds(40)
