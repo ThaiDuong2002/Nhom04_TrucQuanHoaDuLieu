@@ -1,6 +1,5 @@
 "use client";
 
-import { DatasetInterface } from "@/interface";
 import { domain02DataConvert } from "@/utils";
 import * as d3 from "d3";
 import { useEffect, useRef } from "react";
@@ -13,21 +12,13 @@ const HeatMap02 = ({
   marginRight,
   marginBottom,
   marginLeft,
-}: {
-  data: d3.DSVParsedArray<DatasetInterface>;
-  width: number;
-  rowHeight: number;
-  marginTop: number;
-  marginRight: number;
-  marginBottom: number;
-  marginLeft: number;
 }) => {
   const data02 = domain02DataConvert(data);
   const height = marginTop + marginBottom + rowHeight * data02.storage.length;
 
-  const gx = useRef<SVGSVGElement>(null);
-  const gy = useRef<SVGSVGElement>(null);
-  const bar = useRef<SVGSVGElement>(null);
+  const gx = useRef(null);
+  const gy = useRef(null);
+  const bar = useRef(null);
 
   const color = d3.scaleSequentialSqrt(
     [0, d3.max(data02.prices, (d) => d3.max(d)) ?? 0],
@@ -36,11 +27,11 @@ const HeatMap02 = ({
 
   const f = d3.format(",d");
 
-  const format = (d: number) =>
+  const format = (d) =>
     isNaN(d)
-      ? "N/A Rupees"
+      ? "N/A Rupee"
       : d === 0
-      ? "0 Rupees"
+      ? "0 Rupee"
       : d < 1
       ? "<1 Rupees"
       : d < 1.5
@@ -59,17 +50,12 @@ const HeatMap02 = ({
 
   useEffect(
     () =>
-      void d3
-        .select(gx.current as SVGSVGElement)
-        .call(d3.axisBottom(x).tickSize(width / 120)),
+      void d3.select(gx.current).call(d3.axisBottom(x).tickSize(width / 120)),
     [gx, x, width]
   );
 
   useEffect(
-    () =>
-      void d3
-        .select(gy.current as SVGSVGElement)
-        .call(d3.axisLeft(y).tickSize(height / 40)),
+    () => void d3.select(gy.current).call(d3.axisLeft(y).tickSize(height / 40)),
     [gy, y, height]
   );
 
@@ -87,28 +73,28 @@ const HeatMap02 = ({
               return (
                 <rect
                   key={j}
-                  x={x(data02.display[j])! + 1}
-                  width={x(data02.display[j + 1])! - x(data02.display[j])! - 1}
+                  x={x(data02.display[j]) + 1}
+                  width={x(data02.display[j + 1]) - x(data02.display[j]) - 1}
                   height={y.bandwidth()}
                   fill={isNaN(v) ? "#eee" : v === 0 ? "#fff" : color(v)}
                 >
-                  <title>{`Actual Value: ${format(v)}`}</title>
+                  <title>{`Average Actual Value: ${format(v)}`}</title>
                 </rect>
               );
             } else if (j === d.length - 1) {
               return (
                 <rect
                   key={j}
-                  x={x(data02.display[j])! + 1}
+                  x={x(data02.display[j]) + 1}
                   width={
-                    x(data02.display[j])! +
+                    x(data02.display[j]) +
                     width / (data02.display.length - 1) -
                     marginRight * 2
                   }
                   height={y.bandwidth()}
                   fill={isNaN(v) ? "#eee" : v === 0 ? "#fff" : color(v)}
                 >
-                  <title>{`Actual Value: ${format(v)}`}</title>
+                  <title>{`Average Actual Value: ${format(v)}`}</title>
                 </rect>
               );
             }

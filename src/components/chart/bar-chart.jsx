@@ -1,6 +1,5 @@
 "use client";
 
-import { DatasetInterface } from "@/interface";
 import * as d3 from "d3";
 import { useEffect, useRef } from "react";
 
@@ -12,17 +11,9 @@ const BarChart = ({
   marginRight,
   marginBottom,
   marginLeft,
-}: {
-  data: d3.DSVParsedArray<DatasetInterface>;
-  width: number;
-  height: number;
-  marginTop: number;
-  marginRight: number;
-  marginBottom: number;
-  marginLeft: number;
 }) => {
-  const gx = useRef<SVGSVGElement>(null);
-  const gy = useRef<SVGSVGElement>(null);
+  const gx = useRef(null);
+  const gy = useRef(null);
   const bar = useRef(null);
 
   const bins = d3
@@ -44,7 +35,7 @@ const BarChart = ({
 
   useEffect(
     () =>
-      void d3.select(gx.current as SVGSVGElement).call(
+      void d3.select(gx.current).call(
         d3
           .axisBottom(x)
           .ticks(width / 80)
@@ -56,7 +47,7 @@ const BarChart = ({
   useEffect(
     () =>
       void d3
-        .select(gy.current as SVGSVGElement)
+        .select(gy.current)
         .call(d3.axisLeft(y).ticks(height / 40))
         .call((g) => g.select(".domain").remove()),
     [gy, y, height]
@@ -73,8 +64,8 @@ const BarChart = ({
         {bins.map((d, i) => (
           <rect
             key={i}
-            x={x(d.x0!) + 1}
-            width={x(d.x1!) - x(d.x0!) - 1}
+            x={x(d.x0) + 1}
+            width={x(d.x1) - x(d.x0) - 1}
             y={y(d.length)}
             height={y(0) - y(d.length)}
           />

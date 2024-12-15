@@ -1,8 +1,4 @@
-const domainData: {
-  title: string;
-  href: string;
-  description: string;
-}[] = [
+const domainData = [
   {
     title: "Domain 01",
     href: "/domain-01",
