@@ -3,6 +3,7 @@
 import { domain02DataConvert } from "@/utils";
 import * as d3 from "d3";
 import { useEffect, useRef } from "react";
+import legend from "../legend";
 
 const HeatMap02 = ({
   data,
@@ -60,50 +61,57 @@ const HeatMap02 = ({
   );
 
   return (
-    <svg
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-      className="max-w-full h-auto"
-    >
-      {data02.prices.map((d, i) => (
-        <g ref={bar} key={i} transform={`translate(0,${y(data02.storage[i])})`}>
-          {d.map((v, j) => {
-            if (j < d.length - 1) {
-              return (
-                <rect
-                  key={j}
-                  x={x(data02.display[j]) + 1}
-                  width={x(data02.display[j + 1]) - x(data02.display[j]) - 1}
-                  height={y.bandwidth()}
-                  fill={isNaN(v) ? "#eee" : v === 0 ? "#fff" : color(v)}
-                >
-                  <title>{`Average Actual Value: ${format(v)}`}</title>
-                </rect>
-              );
-            } else if (j === d.length - 1) {
-              return (
-                <rect
-                  key={j}
-                  x={x(data02.display[j]) + 1}
-                  width={
-                    x(data02.display[j]) +
-                    width / (data02.display.length - 1) -
-                    marginRight * 2
-                  }
-                  height={y.bandwidth()}
-                  fill={isNaN(v) ? "#eee" : v === 0 ? "#fff" : color(v)}
-                >
-                  <title>{`Average Actual Value: ${format(v)}`}</title>
-                </rect>
-              );
-            }
-          })}
-        </g>
-      ))}
-      <g ref={gx} transform={`translate(0,${height - marginBottom})`} />
-      <g ref={gy} transform={`translate(${marginLeft},0)`} />
-    </svg>
+    <>
+      {legend({ color, title: "Average Actual Value", width: 1200 })}
+      <svg
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        className="max-w-full h-auto"
+      >
+        {data02.prices.map((d, i) => (
+          <g
+            ref={bar}
+            key={i}
+            transform={`translate(0,${y(data02.storage[i])})`}
+          >
+            {d.map((v, j) => {
+              if (j < d.length - 1) {
+                return (
+                  <rect
+                    key={j}
+                    x={x(data02.display[j]) + 1}
+                    width={x(data02.display[j + 1]) - x(data02.display[j]) - 1}
+                    height={y.bandwidth()}
+                    fill={isNaN(v) ? "#eee" : v === 0 ? "#fff" : color(v)}
+                  >
+                    <title>{`Average Actual Value: ${format(v)}`}</title>
+                  </rect>
+                );
+              } else if (j === d.length - 1) {
+                return (
+                  <rect
+                    key={j}
+                    x={x(data02.display[j]) + 1}
+                    width={
+                      x(data02.display[j]) +
+                      width / (data02.display.length - 1) -
+                      marginRight * 2
+                    }
+                    height={y.bandwidth()}
+                    fill={isNaN(v) ? "#eee" : v === 0 ? "#fff" : color(v)}
+                  >
+                    <title>{`Average Actual Value: ${format(v)}`}</title>
+                  </rect>
+                );
+              }
+            })}
+          </g>
+        ))}
+        <g ref={gx} transform={`translate(0,${height - marginBottom})`} />
+        <g ref={gy} transform={`translate(${marginLeft},0)`} />
+      </svg>
+    </>
   );
 };
 

@@ -61,8 +61,8 @@ const HeatMap03 = ({
   );
 
   return (
-    <div>
-      {legend(color)}
+    <>
+      {legend({ color, title: "Average Stars" })}
       <svg
         width={width}
         height={height}
@@ -107,7 +107,7 @@ const HeatMap03 = ({
         <g ref={gx} transform={`translate(0,${height - marginBottom})`} />
         <g ref={gy} transform={`translate(${marginLeft},0)`} />
       </svg>
-    </div>
+    </>
   );
 };
 
