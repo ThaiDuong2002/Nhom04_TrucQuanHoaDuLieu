@@ -23,7 +23,7 @@ const HeatMap02 = ({
 
   const color = d3.scaleSequentialSqrt(
     [0, d3.max(data02.prices, (d) => d3.max(d)) ?? 0],
-    d3.interpolatePuRd
+    d3.interpolateTurbo
   );
 
   const f = d3.format(",d");
@@ -83,7 +83,7 @@ const HeatMap02 = ({
                     x={x(data02.display[j]) + 1}
                     width={x(data02.display[j + 1]) - x(data02.display[j]) - 1}
                     height={y.bandwidth()}
-                    fill={isNaN(v) ? "#eee" : v === 0 ? "#fff" : color(v)}
+                    fill={color(v)}
                   >
                     <title>{`Average Actual Value: ${format(v)}`}</title>
                   </rect>
@@ -99,7 +99,7 @@ const HeatMap02 = ({
                       marginRight * 2
                     }
                     height={y.bandwidth()}
-                    fill={isNaN(v) ? "#eee" : v === 0 ? "#fff" : color(v)}
+                    fill={color(v)}
                   >
                     <title>{`Average Actual Value: ${format(v)}`}</title>
                   </rect>
