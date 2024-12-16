@@ -21,10 +21,9 @@ const HeatMap03 = ({
   const gy = useRef(null);
   const bar = useRef(null);
 
-  const color = d3.scaleSequentialSqrt(
-    [0, d3.max(data03.stars, (d) => d3.max(d)) ?? 0],
-    d3.interpolatePuRd
-  );
+  const color = d3.scaleThreshold()
+    .domain([3.6, 3.8, 4.0, 4.2, 4.4, 4.6]) // Ngưỡng chia khoảng từ 3.6 đến 4.6
+    .range(d3.schemeRdBu[6]);
 
   const f = d3.format(".2f");
 
