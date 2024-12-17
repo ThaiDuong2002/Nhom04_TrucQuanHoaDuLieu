@@ -71,4 +71,40 @@ const domain03DataConvert = (data) => {
   return domain03Data;
 };
 
-export { countUniqueStorage, domain02DataConvert, domain03DataConvert };
+const domain04DataConvert = (data) => {
+  // Lấy danh sách các brand duy nhất
+  const brands = [...new Set(data.map((d) => d.Brand))];
+
+  // Tính tổng rating và trung bình Stars cho từng brand
+  const brandStats = brands.map((brand) => {
+    const filteredData = data.filter((d) => d.Brand === brand);
+
+    // Tính tổng số rating và trung bình Stars
+    const totalRating = filteredData.reduce(
+      (acc, curr) => acc + (curr.Rating ?? 0),
+      0
+    );
+
+    const averageStars =
+      filteredData.reduce((acc, curr) => acc + (curr.Stars ?? 0), 0) /
+      filteredData.length;
+
+    return {
+      brand: brand,
+      totalRating: totalRating,
+      averageStars: isNaN(averageStars) ? 0 : averageStars,
+    };
+  });
+
+  // Dữ liệu trả về để vẽ scatter plot
+  const domain04Data = {
+    x: brandStats.map((b) => b.totalRating), // Tổng rating (trục X)
+    y: brandStats.map((b) => b.averageStars), // Trung bình Stars (trục Y)
+    labels: brandStats.map((b) => b.brand), // Tên brand
+  };
+
+  return domain04Data;
+};
+
+
+export { countUniqueStorage, domain02DataConvert, domain03DataConvert, domain04DataConvert };
