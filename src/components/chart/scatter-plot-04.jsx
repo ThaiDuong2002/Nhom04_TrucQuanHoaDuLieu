@@ -3,26 +3,19 @@
 import { domain04DataConvert } from "@/utils";
 import * as d3 from "d3";
 import { useEffect, useRef } from "react";
-import legend from "../legend"; // Nếu bạn dùng phần legend
 
 const ScatterPlot04 = ({ data }) => {
   const svgRef = useRef();
 
   useEffect(() => {
-    // Gọi hàm domain04DataConvert để chuyển đổi dữ liệu
     const scatterPlotData = domain04DataConvert(data);
 
-    // In ra console các giá trị đã đọc
-    console.log("Scatter Plot Data:", scatterPlotData);
-
-    // Thiết lập D3 chart
     const svg = d3.select(svgRef.current);
-    svg.selectAll("*").remove(); // Xóa nội dung cũ trong SVG
+    svg.selectAll("*").remove(); // Xóa nội dung cũ
 
-    const containerWidth = svgRef.current.parentElement.offsetWidth;
-    const width = containerWidth - 100;
+    const width = 800;
     const height = 500;
-    const margin = { top: 20, right: 20, bottom: 50, left: 50 };
+    const margin = { top: 50, right: 50, bottom: 50, left: 50 };
 
     const xScale = d3
       .scaleLinear()
@@ -34,21 +27,40 @@ const ScatterPlot04 = ({ data }) => {
       .domain([0, d3.max(scatterPlotData.y)])
       .range([height - margin.bottom, margin.top]);
 
-    // Trục X
+    // Vẽ trục X
     svg
       .append("g")
       .attr("transform", `translate(0, ${height - margin.bottom})`)
-      .text("Total ratings")
       .call(d3.axisBottom(xScale));
 
-    // Trục Y
+    // Chú thích trục X
+    svg
+      .append("text")
+      .attr("x", width / 2)
+      .attr("y", height - margin.bottom / 2 + 10)
+      .attr("text-anchor", "middle")
+      .text("Total Ratings") // Nội dung chú thích trục X
+      .attr("font-size", "14px")
+      .attr("fill", "black");
+
+    // Vẽ trục Y
     svg
       .append("g")
       .attr("transform", `translate(${margin.left}, 0)`)
-      .text("Average stars")
       .call(d3.axisLeft(yScale));
 
-    // Các điểm scatter plot
+    // Chú thích trục Y
+    svg
+      .append("text")
+      .attr("x", -height / 2)
+      .attr("y", margin.left / 2 - 10)
+      .attr("transform", "rotate(-90)") // Xoay văn bản để hiển thị theo trục Y
+      .attr("text-anchor", "middle")
+      .text("Average Stars") // Nội dung chú thích trục Y
+      .attr("font-size", "14px")
+      .attr("fill", "black");
+
+    // Vẽ các node scatter plot
     svg
       .selectAll("circle")
       .data(scatterPlotData.labels)
@@ -56,12 +68,12 @@ const ScatterPlot04 = ({ data }) => {
       .append("circle")
       .attr("cx", (d, i) => xScale(scatterPlotData.x[i]))
       .attr("cy", (d, i) => yScale(scatterPlotData.y[i]))
-      .attr("r", 8)
-      .attr("fill", "none")
-      .attr("stroke", "orange")
-      .attr("stroke-width", 2);
+      .attr("r", 8) // Kích thước node
+      .attr("fill", "none") // Node rỗng (không có nền)
+      .attr("stroke", "orange") // Viền màu cam
+      .attr("stroke-width", 2); // Độ dày viền
 
-    // Nhãn của từng điểm
+    // Thêm nhãn cho các điểm
     svg
       .selectAll("text.label")
       .data(scatterPlotData.labels)
@@ -75,11 +87,7 @@ const ScatterPlot04 = ({ data }) => {
       .attr("fill", "black");
   }, [data]);
 
-  return (
-    <div>
-      <svg ref={svgRef} width={800} height={500}></svg>
-    </div>
-  );
+  return <svg ref={svgRef} width={1200} height={500}></svg>;
 };
 
 export default ScatterPlot04;
