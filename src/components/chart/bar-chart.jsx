@@ -1,5 +1,6 @@
 "use client";
 
+import { domain01DataConvert } from "@/utils";
 import * as d3 from "d3";
 import { useEffect, useRef } from "react";
 
@@ -15,6 +16,10 @@ const BarChart = ({
   const gx = useRef(null);
   const gy = useRef(null);
   const bar = useRef(null);
+
+  const f = d3.format(",d");
+
+  const format = (d) => (isNaN(d) ? "N/A" : `${f(d)}`);
 
   const bins = d3
     .bin()
@@ -68,7 +73,9 @@ const BarChart = ({
             width={x(d.x1) - x(d.x0) - 1}
             y={y(d.length)}
             height={y(0) - y(d.length)}
-          />
+          >
+            <title>{`Count of Discounted: ${format(d.length)}`}</title>
+          </rect>
         ))}
       </g>
       <g ref={gx} transform={`translate(0,${height - marginBottom})`}>

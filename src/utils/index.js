@@ -3,6 +3,18 @@ const countUniqueStorage = (data) => {
   return uniqueValues.size;
 };
 
+const domain01DataConvert = (data, max) => {
+  const result = [];
+
+  for (let i = 0; i <= max; i++) {
+    const frequency = data.filter((item) => item.Discounted === i).length;
+
+    result.push({ frequency, discounted: i });
+  }
+
+  return result;
+};
+
 const domain02DataConvert = (data) => {
   const storageData = [...new Set(data.map((d) => d.Storage))].sort(
     (a, b) => (b ?? 0) - (a ?? 0)
@@ -106,5 +118,10 @@ const domain04DataConvert = (data) => {
   return domain04Data;
 };
 
-
-export { countUniqueStorage, domain02DataConvert, domain03DataConvert, domain04DataConvert };
+export {
+  countUniqueStorage,
+  domain01DataConvert,
+  domain02DataConvert,
+  domain03DataConvert,
+  domain04DataConvert,
+};

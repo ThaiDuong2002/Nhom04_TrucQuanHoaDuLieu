@@ -7,20 +7,20 @@ const Domain02 = async () => {
     if (!data) return null;
 
     return {
-      ProductName: data["Product Name"] || null,
-      Brand: data.Brand || null,
-      ActualPrice: Number(data["Actual price"]) || null,
-      DiscountPrice: Number(data["Discount price"]) || null,
-      Discounted: Number(data.Discounted) || null,
-      Stars: Number(data.Stars) || null,
-      Rating: Number(data.Rating) || null,
-      Reviews: Number(data.Reviews) || null,
-      RAM: Number(data["RAM (GB)"]) || null,
-      Storage: Number(data["Storage (GB)"]) || null,
-      DisplaySize: Number(data["Display Size (inch)"]) || null,
-      Camera: data.Camera || null,
-      Description: data.Description || null,
-      Link: data.Link || null,
+      ProductName: data["Product Name"] ?? null,
+      Brand: data.Brand ?? null,
+      ActualPrice: Number(data["Actual price"]) ?? null,
+      DiscountPrice: Number(data["Discount price"]) ?? null,
+      Discounted: Number(data.Discounted) ?? null,
+      Stars: Number(data.Stars) ?? null,
+      Rating: Number(data.Rating) ?? null,
+      Reviews: Number(data.Reviews) ?? null,
+      RAM: Number(data["RAM (GB)"]) ?? null,
+      Storage: Number(data["Storage (GB)"]) ?? null,
+      DisplaySize: Number(data["Display Size (inch)"]) ?? null,
+      Camera: data.Camera ?? null,
+      Description: data.Description ?? null,
+      Link: data.Link ?? null,
     };
   });
 
