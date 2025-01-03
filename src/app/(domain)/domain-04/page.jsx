@@ -24,17 +24,17 @@ const Domain04 = async () => {
     };
   });
 
-  const width = 1200;
-  const rowHeight = 16;
-  const marginTop = 50;
-  const marginRight = 1;
+  const width = 1100;
+  const height = 700;
+  const marginTop = 30;
+  const marginRight = 20;
   const marginBottom = 40;
-  const marginLeft = 50;
+  const marginLeft = 40;
   return (
     <div>
       <ScatterPlot04
         data={data}
-        rowHeight={rowHeight}
+        height={height}
         width={width}
         marginTop={marginTop}
         marginRight={marginRight}
