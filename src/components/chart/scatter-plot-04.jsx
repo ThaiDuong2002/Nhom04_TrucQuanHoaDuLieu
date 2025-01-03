@@ -29,7 +29,7 @@ const ScatterPlot04 = ({
 
     const y = d3
       .scaleLinear()
-      .domain([d3.min(scatterPlotData.y), d3.max(scatterPlotData.y)])
+      .domain([0, d3.max(scatterPlotData.y)])
       .range([height - marginBottom, marginTop]);
 
     // Vẽ trục X
